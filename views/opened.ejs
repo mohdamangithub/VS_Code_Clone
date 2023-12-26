@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VSCODE CLONE</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="../stylesheets/style.css" />
+  </head>
+  <body>
+    <div id="main">
+      <div id="popup">
+        <div id="popup-child">
+          <h3>Change name</h3>
+          <hr />
+          <form action="/renamed/" method="post">
+            <input id="inp" name="rename" type="text" />
+            <input id="rename-btn" type="submit" value="Change Name" />
+          </form>
+        </div>
+      </div>
+      <div id="nav">
+        <div id="nav-part2">
+          <img src="../images/file_type_vscode_icon_130084.png" alt="" />
+          <a href="">File</a>
+          <a href="">Edit</a>
+          <a href="">Selection</a>
+          <a href="">View</a>
+          <a href="">Go</a>
+          <a href="">Run</a>
+          <a href="">Terminal</a>
+          <a href="">Help</a>
+        </div>
+        <h5><%= folder %>-Visual Studio Code</h5>
+        <div id="nav-icons">
+          <div id="nav-icons-prt1">
+            <i class="ri-layout-column-fill"></i>
+            <i class="ri-layout-bottom-line"></i>
+            <i class="ri-layout-right-line"></i>
+            <i class="ri-layout-masonry-fill"></i>
+          </div>
+          <i class="ri-subtract-line"></i>
+          <i class="ri-checkbox-multiple-blank-line"></i>
+          <i class="ri-close-line"></i>
+        </div>
+      </div>
+      <div id="container">
+        <div id="slider">
+          <div id="slide-prt1">
+            <i id="doc" class="ri-file-copy-line"></i>
+            <i class="ri-search-line"></i>
+            <i class="ri-git-branch-line"></i>
+            <i class="ri-google-play-line"></i>
+            <i class="ri-thunderstorms-fill"></i>
+          </div>
+          <div id="slide-prt2">
+            <i class="ri-user-line"></i>
+            <i class="ri-settings-2-line"></i>
+          </div>
+        </div>
+        <div id="left">
+          <div id="three-dot">
+            <i class="ri-more-fill"></i>
+          </div>
+          <div id="folder-name">
+            <div id="head">
+              <i id="arrow1" class="ri-arrow-down-s-line"></i>
+              <h2><%= folder %></h2>
+            </div>
+            <div id="icons">
+              <i id="file-icon" class="ri-file-line"></i>
+              <i id="folder-icon" class="ri-folder-fill"></i>
+              <a id="refresh" href="/back"
+                ><i id="refresh-icon" class="ri-refresh-line"></i
+              ></a>
+            </div>
+          </div>
+          <div id="file-details">
+            <div id="files">
+              <form id="file-inp" action="/createfile" method="post">
+                <i class="ri-file-line"></i>
+                <input type="text" name="filename" placeholder="" />
+              </form>
+              <form id="folder-inp" action="/createfolder" method="post">
+                <i class="ri-folder-fill"></i>
+                <input type="text" name="foldername" placeholder="" />
+              </form>
+              <% files.forEach(function(val){ %>
+
+              <div class="elem">
+                <div id="elem-left">
+                  <% if(val.isDirectory()){ %>
+                  <i id="arrow" class="ri-arrow-down-s-line"></i>
+                  <i class="ri-folder-fill"></i>
+                  <%= val.name %> <% } else{ %>
+                  <a id="ankerfile" href="/file/<%= val.name %>">
+                    <i class="ri-file-line"></i>
+                    <%= val.name %>
+                  </a>
+                  <% }%>
+                </div>
+                <div id="elem-right">
+                  <i id="editrename" class="ri-pencil-fill"></i>
+                  <% if(val.isDirectory()){ %>
+                  <a href="/delete/folder/<%= val.name %>"
+                    ><i class="ri-delete-bin-fill"></i
+                  ></a>
+                  <% } else{ %>
+                  <a href="/delete/file/<%= val.name %>"
+                    ><i class="ri-delete-bin-fill"></i
+                  ></a>
+                  <% } %>
+                </div>
+              </div>
+
+              <% }) %>
+            </div>
+          </div>
+        </div>
+        <div id="right">
+          <div id="rnav">
+            <div class="inbox">
+              <i class="ri-file-line"></i>
+              <p><%=data%></p>
+              <a href="/"> <i class="ri-close-fill"></i></a>
+            </div>
+          </div>
+          <form action="/updated/<%=data%>" method="post">
+            <textarea name="txt"><%=filedata%></textarea>
+            <input type="submit" />
+          </form>
+        </div>
+      </div>
+    </div>
+    <script src="../javascripts/script.js"></script>
+  </body>
+</html>
